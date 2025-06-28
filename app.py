@@ -609,7 +609,7 @@ else:
                     st.session_state.current_image += 1
                     st.rerun()
             else:
-                if st.button("🎯 Submit Evaluation", type="primary"):
+                if st.button("✨ Submit Evaluation", type="primary"):
                     st.session_state.evaluation_complete = True
                     st.rerun()
     
