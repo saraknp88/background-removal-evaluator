@@ -597,7 +597,7 @@ else:
     with col2:
         if current_rating > 0:  # Only allow navigation if rated
             if current_img < total_imgs - 1:
-                if st.button("Next ➡️", type="primary", key=f"next_{current_img}"):
+                if st.button("Next", type="primary", key=f"next_{current_img}"):
                     st.session_state.current_image += 1
                     st.rerun()
             else:
