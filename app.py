@@ -601,16 +601,6 @@ else:
                 st.session_state.ratings[current_img] = scale['value']
                 st.rerun()
     
-    # Show selected rating description
-    if current_rating > 0:
-        selected_scale = quality_scales[current_rating - 1]
-        st.markdown(f"""
-        <div style="background: {selected_scale['color']}20; padding: 1rem; border-radius: 0.5rem; border-left: 4px solid {selected_scale['color']}; margin: 1rem 0;">
-            <strong>Selected: {current_rating} - {selected_scale['label']}</strong><br>
-            {selected_scale['description']}
-        </div>
-        """, unsafe_allow_html=True)
-    
     # Navigation buttons
     col1, col2, col3 = st.columns([1, 2, 1])
     
