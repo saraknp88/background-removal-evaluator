@@ -27,7 +27,7 @@ Assess AI-generated background removal results for production readiness with our
 
 ## 🔗 Quick Start
 
-1. **[Open the App](your-streamlit-app-url-here)**
+1. **[Open the App]([your-streamlit-app-url-here](https://background-removal-evaluator-8qmjiykauk7sjauwsnjskj.streamlit.app/)**
 2. **Review the criteria** on the landing page
 3. **Evaluate images** using the 5-point scale
 4. **View analysis** when complete
