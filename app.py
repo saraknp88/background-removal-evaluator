@@ -581,7 +581,7 @@ else:
     
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # Rating section with horizontal buttons (working version)
+    # Rating section with color-coded horizontal buttons  
     current_rating = st.session_state.ratings.get(current_img, 0)
     
     st.markdown("### Rate the quality of the \"Background Removal Result\" image:")
@@ -591,15 +591,67 @@ else:
     
     for i, scale in enumerate(quality_scales):
         with cols[i]:
-            button_type = "primary" if current_rating == scale['value'] else "secondary"
-            if st.button(
-                f"{scale['value']} - {scale['label']}", 
-                key=f"rating_btn_{current_img}_{scale['value']}", 
-                type=button_type,
-                help=scale['description']
-            ):
-                st.session_state.ratings[current_img] = scale['value']
-                st.rerun()
+            # Use HTML buttons for better color control
+            if current_rating == scale['value']:
+                # Selected state
+                button_html = f"""
+                <div style="
+                    background-color: {scale['color']};
+                    color: white;
+                    border: 2px solid {scale['color']};
+                    border-radius: 8px;
+                    padding: 12px 8px;
+                    text-align: center;
+                    font-weight: 500;
+                    margin-bottom: 8px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                " title="{scale['description']}">
+                    {scale['value']} - {scale['label']}
+                </div>
+                """
+                st.markdown(button_html, unsafe_allow_html=True)
+                
+                # Hidden button for functionality
+                if st.button("", key=f"hidden_btn_{current_img}_{scale['value']}", 
+                           label_visibility="hidden"):
+                    pass  # Already selected
+            else:
+                # Unselected state with hover
+                button_html = f"""
+                <style>
+                .rating-btn-{scale['value']} {{
+                    background-color: #f8f9fa;
+                    color: #6c757d;
+                    border: 2px solid #e9ecef;
+                    border-radius: 8px;
+                    padding: 12px 8px;
+                    text-align: center;
+                    font-weight: 500;
+                    margin-bottom: 8px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    display: block;
+                    width: 100%;
+                }}
+                .rating-btn-{scale['value']}:hover {{
+                    background-color: {scale['color']} !important;
+                    color: white !important;
+                    border-color: {scale['color']} !important;
+                }}
+                </style>
+                <div class="rating-btn-{scale['value']}" title="{scale['description']}">
+                    {scale['value']} - {scale['label']}
+                </div>
+                """
+                st.markdown(button_html, unsafe_allow_html=True)
+                
+                # Functional button (invisible)
+                if st.button(f"{scale['value']} - {scale['label']}", 
+                           key=f"rating_btn_{current_img}_{scale['value']}",
+                           help=scale['description']):
+                    st.session_state.ratings[current_img] = scale['value']
+                    st.rerun()
     
     # Navigation buttons
     col1, col2, col3 = st.columns([1, 2, 1])
@@ -617,7 +669,7 @@ else:
                     st.session_state.current_image += 1
                     st.rerun()
             else:
-                if st.button("🎯 Submit Evaluation", type="primary"):
+                if st.button("✨ Submit Evaluation", type="primary"):
                     st.session_state.evaluation_complete = True
                     st.rerun()
     
