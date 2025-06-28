@@ -310,56 +310,36 @@ def custom_radio_buttons(current_rating):
     """Create custom vertical radio buttons matching React design"""
     st.markdown("### Rate the quality of the \"Background Removal Result\" image:")
     
-    # Create vertical radio buttons using pure Streamlit approach
-    selected_rating = None
+    # Use Streamlit's built-in radio with simplified options
+    options = [
+        "1 - Unusable",
+        "2 - Partially Viable", 
+        "3 - Moderately Functional",
+        "4 - Near Production Ready",
+        "5 - Production Ready"
+    ]
+    option_values = [1, 2, 3, 4, 5]
     
-    for scale in quality_scales:
-        # Create container for each option
-        container = st.container()
-        
-        with container:
-            # Apply selected styling based on current rating
-            if current_rating == scale['value']:
-                bg_color = {
-                    1: "#fef2f2", 2: "#fff7ed", 3: "#fffbeb", 4: "#eff6ff", 5: "#f0fdf4"
-                }[scale['value']]
-                border_color = scale['color']
-                text_color = {
-                    1: "#7f1d1d", 2: "#9a3412", 3: "#92400e", 4: "#1e40af", 5: "#15803d"
-                }[scale['value']]
-            else:
-                bg_color = "#ffffff"
-                border_color = "#e5e7eb"
-                text_color = "#374151"
-            
-            # Custom styled container for each option
-            st.markdown(f"""
-            <div style="
-                padding: 12px;
-                margin-bottom: 8px;
-                border: 2px solid {border_color};
-                border-radius: 8px;
-                background: {bg_color};
-                color: {text_color};
-                cursor: pointer;
-                transition: all 0.2s ease;
-            ">
-                <div style="font-weight: 600; margin-bottom: 4px;">
-                    {scale['value']} - {scale['label']}
-                </div>
-                <div style="font-size: 0.875rem; color: #6b7280; line-height: 1.4;">
-                    {scale['description']}
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            # Invisible button to capture clicks
-            if st.button(f"Select {scale['value']}", key=f"rating_{scale['value']}", 
-                        help=f"Rate as {scale['label']}", 
-                        label_visibility="collapsed"):
-                selected_rating = scale['value']
+    # Find current selection index
+    current_index = None
+    if current_rating > 0:
+        current_index = current_rating - 1
     
-    return selected_rating
+    # Create the radio buttons
+    selected_option = st.radio(
+        "Select rating:",
+        options,
+        index=current_index,
+        key="quality_rating"
+    )
+    
+    # Return the numeric value
+    if selected_option:
+        for i, option in enumerate(options):
+            if option == selected_option:
+                return option_values[i]
+    
+    return None
 
 def create_view_mode_buttons():
     """Create custom view mode buttons"""
@@ -557,12 +537,12 @@ else:
     # Instructions
     st.markdown("""
     <div class="criteria-list">
-        <strong>Assess AI-generated background removal results for production readiness. Rate each image from 1 to 5 based on:</strong>
-        <ul>
-            <li><strong>Edge quality</strong></li>
-            <li><strong>Artifact removal</strong></li>
-            <li><strong>Professional appearance</strong></li>
-        </ul>
+        <strong>Assess AI-generated background removal results for production readiness. Rate each image from 1 to 5 based on edge quality, artifact removal, and professional appearance:</strong><br><br>
+        <strong>1 - Unusable:</strong> Major issues with structure, style, identity, or overall quality. Not suitable for use.<br>
+        <strong>2 - Partially Viable:</strong> Useful as a concept or direction, but not for final use. Significant fixes required.<br>
+        <strong>3 - Moderately Functional:</strong> Largely usable, with moderate fixes needed. More efficient than starting from scratch.<br>
+        <strong>4 - Near Production Ready:</strong> Only minor adjustments needed, such as light cleanup or retouching.<br>
+        <strong>5 - Production Ready:</strong> No further edits needed. Ready for immediate use.
     </div>
     """, unsafe_allow_html=True)
     
@@ -602,11 +582,11 @@ else:
     
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # Rating section with custom vertical layout
+    # Rating section with simplified approach
     current_rating = st.session_state.ratings.get(current_img, 0)
     selected_rating = custom_radio_buttons(current_rating)
     
-    if selected_rating:
+    if selected_rating and selected_rating != current_rating:
         st.session_state.ratings[current_img] = selected_rating
         st.rerun()
     
