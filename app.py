@@ -325,12 +325,11 @@ def custom_radio_buttons(current_rating):
     if current_rating > 0:
         current_index = current_rating - 1
     
-    # Create the radio buttons
+    # Create the radio buttons - remove the key to avoid conflicts
     selected_option = st.radio(
         "Select rating:",
         options,
-        index=current_index,
-        key="quality_rating"
+        index=current_index
     )
     
     # Return the numeric value
@@ -339,7 +338,7 @@ def custom_radio_buttons(current_rating):
             if option == selected_option:
                 return option_values[i]
     
-    return None
+    return current_rating if current_rating > 0 else None
 
 def create_view_mode_buttons():
     """Create custom view mode buttons"""
@@ -584,11 +583,43 @@ else:
     
     # Rating section with simplified approach
     current_rating = st.session_state.ratings.get(current_img, 0)
-    selected_rating = custom_radio_buttons(current_rating)
     
+    # Show the rating interface
+    st.markdown("### Rate the quality of the \"Background Removal Result\" image:")
+    
+    # Create radio buttons with unique key for each image
+    options = [
+        "1 - Unusable",
+        "2 - Partially Viable", 
+        "3 - Moderately Functional",
+        "4 - Near Production Ready",
+        "5 - Production Ready"
+    ]
+    
+    # Find current selection index
+    current_index = None
+    if current_rating > 0:
+        current_index = current_rating - 1
+    
+    # Create the radio buttons with unique key
+    selected_option = st.radio(
+        "Select rating:",
+        options,
+        index=current_index,
+        key=f"quality_rating_{current_img}"
+    )
+    
+    # Get the numeric value
+    selected_rating = None
+    if selected_option:
+        for i, option in enumerate(options):
+            if option == selected_option:
+                selected_rating = i + 1
+                break
+    
+    # Update session state if rating changed
     if selected_rating and selected_rating != current_rating:
         st.session_state.ratings[current_img] = selected_rating
-        st.rerun()
     
     # Navigation buttons
     col1, col2, col3 = st.columns([1, 2, 1])
