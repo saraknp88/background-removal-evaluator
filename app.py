@@ -8,7 +8,7 @@ import time
 # Page configuration
 st.set_page_config(
     page_title="Sara's Enterprise Background Removal Evaluator",
-    page_icon="🎯",
+    page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -581,45 +581,32 @@ else:
     
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # Rating section with simplified approach
+    # Rating section - using simple Streamlit radio buttons
     current_rating = st.session_state.ratings.get(current_img, 0)
     
-    # Show the rating interface
+    # Create radio options using the quality scales
+    radio_options = []
+    for scale in quality_scales:
+        radio_options.append(f"{scale['value']} - {scale['label']}")
+    
     st.markdown("### Rate the quality of the \"Background Removal Result\" image:")
     
-    # Create radio buttons with unique key for each image
-    options = [
-        "1 - Unusable",
-        "2 - Partially Viable", 
-        "3 - Moderately Functional",
-        "4 - Near Production Ready",
-        "5 - Production Ready"
-    ]
+    # Determine the default index
+    default_index = 0 if current_rating == 0 else current_rating - 1
     
-    # Find current selection index
-    current_index = None
-    if current_rating > 0:
-        current_index = current_rating - 1
-    
-    # Create the radio buttons with unique key
-    selected_option = st.radio(
-        "Select rating:",
-        options,
-        index=current_index,
-        key=f"quality_rating_{current_img}"
+    # Create radio buttons
+    selected_rating_text = st.radio(
+        "Choose your rating:",
+        radio_options,
+        index=default_index if current_rating > 0 else None,
+        key=f"rating_radio_{current_img}"
     )
     
-    # Get the numeric value
-    selected_rating = None
-    if selected_option:
-        for i, option in enumerate(options):
-            if option == selected_option:
-                selected_rating = i + 1
-                break
-    
-    # Update session state if rating changed
-    if selected_rating and selected_rating != current_rating:
-        st.session_state.ratings[current_img] = selected_rating
+    # Extract numeric rating from selection
+    if selected_rating_text:
+        selected_rating = int(selected_rating_text.split(' - ')[0])
+        if selected_rating != current_rating:
+            st.session_state.ratings[current_img] = selected_rating
     
     # Navigation buttons
     col1, col2, col3 = st.columns([1, 2, 1])
