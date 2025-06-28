@@ -284,14 +284,6 @@ def create_celebration_animation():
     
     st.markdown(celebration_html, unsafe_allow_html=True)
     
-    # Show celebration emojis with limited animation
-    emoji_cols = st.columns(8)
-    celebration_emojis = ["🎊", "✨", "🎈", "🌟", "🎆", "🏆", "👏", "🥳"]
-    for i, emoji in enumerate(celebration_emojis):
-        with emoji_cols[i]:
-            st.markdown(f"<h1 style='text-align: center; font-size: 3rem;'>{emoji}</h1>", 
-                       unsafe_allow_html=True)
-    
     # Create a brief fireworks effect using Streamlit's built-in features
     if 'celebration_shown' not in st.session_state:
         st.session_state.celebration_shown = True
@@ -617,7 +609,7 @@ else:
                     st.session_state.current_image += 1
                     st.rerun()
             else:
-                if st.button("✨ Submit Evaluation", type="primary"):
+                if st.button("🎯 Submit Evaluation", type="primary"):
                     st.session_state.evaluation_complete = True
                     st.rerun()
     
