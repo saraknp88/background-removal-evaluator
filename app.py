@@ -495,14 +495,9 @@ if st.session_state.show_analysis:
     # Action buttons
     col1, col2 = st.columns(2)
     
-    with col1:
+    with col2:
         if st.button("🔄 Start New Evaluation", type="secondary"):
             reset_evaluation()
-            st.rerun()
-    
-    with col2:
-        if st.button("📊 Back to Results", type="secondary"):
-            st.session_state.show_analysis = False
             st.rerun()
 
 elif st.session_state.evaluation_complete:
