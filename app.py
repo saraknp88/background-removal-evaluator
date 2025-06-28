@@ -593,25 +593,77 @@ else:
                 st.session_state.ratings[current_img] = scale['value']
                 st.rerun()
     
-    # Navigation buttons
+    # Navigation buttons with mobile-first design
+    st.markdown("---")
+    
+    # Mobile navigation (Next/Submit button on top)
+    st.markdown('<div class="mobile-nav-container" style="display: block;">', unsafe_allow_html=True)
+    
+    # For mobile: Show Next/Submit first, Previous second
+    col_mobile_1, col_mobile_2 = st.columns(2)
+    
+    with col_mobile_1:
+        # Previous button (appears on left on mobile, but lower priority)
+        if current_img > 0:
+            if st.button("⬅️ Previous", type="secondary", key=f"prev_mobile_{current_img}"):
+                st.session_state.current_image -= 1
+                st.rerun()
+    
+    with col_mobile_2:
+        # Next/Submit button (appears on right on mobile, higher priority)
+        if current_rating > 0:  # Only allow navigation if rated
+            if current_img < total_imgs - 1:
+                if st.button("Next ➡️", type="primary", key=f"next_mobile_{current_img}"):
+                    st.session_state.current_image += 1
+                    st.rerun()
+            else:
+                if st.button("✨ Submit Evaluation", type="primary", key=f"submit_mobile_{current_img}"):
+                    st.session_state.evaluation_complete = True
+                    st.rerun()
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Desktop navigation (traditional layout) - hidden on mobile
+    st.markdown("""
+    <style>
+    @media (max-width: 768px) {
+        .desktop-nav-container {
+            display: none !important;
+        }
+    }
+    @media (min-width: 769px) {
+        .mobile-nav-container {
+            display: none !important;
+        }
+        .desktop-nav-container {
+            display: flex !important;
+        }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Desktop version
+    st.markdown('<div class="desktop-nav-container">', unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col1:
         if current_img > 0:
-            if st.button("⬅️ Previous", type="secondary"):
+            if st.button("⬅️ Previous", type="secondary", key=f"prev_desktop_{current_img}"):
                 st.session_state.current_image -= 1
                 st.rerun()
     
     with col3:
         if current_rating > 0:  # Only allow navigation if rated
             if current_img < total_imgs - 1:
-                if st.button("Next ➡️", type="primary"):
+                if st.button("Next ➡️", type="primary", key=f"next_desktop_{current_img}"):
                     st.session_state.current_image += 1
                     st.rerun()
             else:
-                if st.button("✨ Submit Evaluation", type="primary"):
+                if st.button("🎯 Submit Evaluation", type="primary", key=f"submit_desktop_{current_img}"):
                     st.session_state.evaluation_complete = True
                     st.rerun()
+    
+    st.markdown('</div>', unsafe_allow_html=True)
     
     # Note
     st.markdown("""
