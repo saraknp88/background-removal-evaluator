@@ -588,20 +588,20 @@ else:
                 st.session_state.ratings[current_img] = scale['value']
                 st.rerun()
     
-    # Navigation buttons - Next/Submit only
+    # Navigation buttons - Next/Submit only (right-aligned and smaller)
     st.markdown("---")
     
-    # Single navigation button (centered)
-    col1, col2, col3 = st.columns([1, 2, 1])
+    # Right-aligned navigation button
+    col1, col2 = st.columns([3, 1])
     
     with col2:
         if current_rating > 0:  # Only allow navigation if rated
             if current_img < total_imgs - 1:
-                if st.button("Next ➡️", type="primary", key=f"next_{current_img}", use_container_width=True):
+                if st.button("Next ➡️", type="primary", key=f"next_{current_img}"):
                     st.session_state.current_image += 1
                     st.rerun()
             else:
-                if st.button("✨ Submit Evaluation", type="primary", key=f"submit_{current_img}", use_container_width=True):
+                if st.button("✨ Submit Evaluation", type="primary", key=f"submit_{current_img}"):
                     st.session_state.evaluation_complete = True
                     st.rerun()
         else:
@@ -609,14 +609,15 @@ else:
             st.markdown("""
             <div style="
                 text-align: center;
-                padding: 0.5rem 1rem;
+                padding: 0.4rem 0.8rem;
                 background-color: #f3f4f6;
                 color: #9ca3af;
                 border: 1px solid #d1d5db;
                 border-radius: 0.375rem;
                 font-weight: 500;
+                font-size: 0.875rem;
             ">
-                Please select a rating to continue
+                Select rating first
             </div>
             """, unsafe_allow_html=True)
     
