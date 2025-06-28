@@ -272,135 +272,91 @@ quality_scales = [
 ]
 
 def create_celebration_animation():
-    """Create animated celebration effect"""
-    celebration_container = st.empty()
-    
-    # Create celebration HTML with animations
+    """Create animated celebration effect that runs for 3 seconds"""
+    # Create celebration HTML with limited duration animations
     celebration_html = """
     <div class="celebration">
         <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">🎉 Evaluation Complete! 🎉</h1>
         <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Thank you for your participation!</h2>
         <p style="font-size: 1.1rem;">Your responses have been recorded successfully.</p>
     </div>
-    
-    <script>
-    // Create animated fireworks
-    function createFirework() {
-        const emojis = ['✨', '🎆', '🎊', '⭐', '🌟', '💫'];
-        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7'];
-        
-        for (let i = 0; i < 50; i++) {
-            setTimeout(() => {
-                const firework = document.createElement('div');
-                firework.className = 'firework';
-                firework.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                firework.style.left = Math.random() * window.innerWidth + 'px';
-                firework.style.top = Math.random() * window.innerHeight + 'px';
-                firework.style.color = colors[Math.floor(Math.random() * colors.length)];
-                document.body.appendChild(firework);
-                
-                setTimeout(() => {
-                    if (firework.parentNode) {
-                        firework.parentNode.removeChild(firework);
-                    }
-                }, 2000);
-            }, i * 50);
-        }
-        
-        // Create floating emojis
-        const floatingEmojis = ['🎉', '🎊', '🎈', '🏆', '👏', '🥳'];
-        for (let i = 0; i < 20; i++) {
-            setTimeout(() => {
-                const emoji = document.createElement('div');
-                emoji.className = 'floating-emoji';
-                emoji.innerHTML = floatingEmojis[Math.floor(Math.random() * floatingEmojis.length)];
-                emoji.style.left = Math.random() * window.innerWidth + 'px';
-                emoji.style.bottom = '0px';
-                document.body.appendChild(emoji);
-                
-                setTimeout(() => {
-                    if (emoji.parentNode) {
-                        emoji.parentNode.removeChild(emoji);
-                    }
-                }, 3000);
-            }, i * 100);
-        }
-    }
-    
-    // Start the celebration
-    createFirework();
-    </script>
     """
     
-    celebration_container.markdown(celebration_html, unsafe_allow_html=True)
+    st.markdown(celebration_html, unsafe_allow_html=True)
     
-    # Show celebration emojis
+    # Show celebration emojis with limited animation
     emoji_cols = st.columns(8)
     celebration_emojis = ["🎊", "✨", "🎈", "🌟", "🎆", "🏆", "👏", "🥳"]
     for i, emoji in enumerate(celebration_emojis):
         with emoji_cols[i]:
-            st.markdown(f"<h1 style='text-align: center; font-size: 3rem; animation: firework 2s ease-out infinite;'>{emoji}</h1>", 
+            st.markdown(f"<h1 style='text-align: center; font-size: 3rem;'>{emoji}</h1>", 
                        unsafe_allow_html=True)
+    
+    # Create a brief fireworks effect using Streamlit's built-in features
+    if 'celebration_shown' not in st.session_state:
+        st.session_state.celebration_shown = True
+        
+        # Show balloons for 3 seconds
+        st.balloons()
+        
+        # Brief message
+        with st.empty():
+            for i in range(3):
+                st.success(f"🎉 Celebration! Thank you for your evaluation! 🎉")
+                time.sleep(1)
+            st.empty()  # Clear the message
 
 def custom_radio_buttons(current_rating):
     """Create custom vertical radio buttons matching React design"""
     st.markdown("### Rate the quality of the \"Background Removal Result\" image:")
     
-    # Create the custom radio button HTML
-    radio_html = '<div class="vertical-radio">'
-    
-    for scale in quality_scales:
-        selected_class = f"selected-{scale['value']}" if current_rating == scale['value'] else ""
-        radio_html += f"""
-        <div class="radio-option {selected_class}" onclick="selectRating({scale['value']})">
-            <input type="radio" name="quality_rating" value="{scale['value']}" 
-                   {'checked' if current_rating == scale['value'] else ''}>
-            <div class="radio-content">
-                <div class="radio-label">{scale['value']} - {scale['label']}</div>
-                <div class="radio-description">{scale['description']}</div>
-            </div>
-        </div>
-        """
-    
-    radio_html += '</div>'
-    
-    # Add JavaScript for interactivity
-    radio_html += """
-    <script>
-    function selectRating(value) {
-        // Remove selected class from all options
-        document.querySelectorAll('.radio-option').forEach(option => {
-            option.className = option.className.replace(/selected-\\d/g, '');
-        });
-        
-        // Add selected class to clicked option
-        event.currentTarget.classList.add('selected-' + value);
-        
-        // Check the radio button
-        event.currentTarget.querySelector('input[type="radio"]').checked = true;
-        
-        // Trigger Streamlit update
-        window.parent.postMessage({
-            type: 'streamlit:setComponentValue',
-            value: value
-        }, '*');
-    }
-    </script>
-    """
-    
-    st.markdown(radio_html, unsafe_allow_html=True)
-    
-    # Create buttons for each rating option
-    cols = st.columns(5)
+    # Create vertical radio buttons using pure Streamlit approach
     selected_rating = None
     
-    for i, scale in enumerate(quality_scales):
-        with cols[i]:
-            button_type = "primary" if current_rating == scale['value'] else "secondary"
-            if st.button(f"{scale['value']} - {scale['label']}", 
-                        key=f"rating_btn_{scale['value']}", 
-                        type=button_type,
-                        help=scale['description']):
+    for scale in quality_scales:
+        # Create container for each option
+        container = st.container()
+        
+        with container:
+            # Apply selected styling based on current rating
+            if current_rating == scale['value']:
+                bg_color = {
+                    1: "#fef2f2", 2: "#fff7ed", 3: "#fffbeb", 4: "#eff6ff", 5: "#f0fdf4"
+                }[scale['value']]
+                border_color = scale['color']
+                text_color = {
+                    1: "#7f1d1d", 2: "#9a3412", 3: "#92400e", 4: "#1e40af", 5: "#15803d"
+                }[scale['value']]
+            else:
+                bg_color = "#ffffff"
+                border_color = "#e5e7eb"
+                text_color = "#374151"
+            
+            # Custom styled container for each option
+            st.markdown(f"""
+            <div style="
+                padding: 12px;
+                margin-bottom: 8px;
+                border: 2px solid {border_color};
+                border-radius: 8px;
+                background: {bg_color};
+                color: {text_color};
+                cursor: pointer;
+                transition: all 0.2s ease;
+            ">
+                <div style="font-weight: 600; margin-bottom: 4px;">
+                    {scale['value']} - {scale['label']}
+                </div>
+                <div style="font-size: 0.875rem; color: #6b7280; line-height: 1.4;">
+                    {scale['description']}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Invisible button to capture clicks
+            if st.button(f"Select {scale['value']}", key=f"rating_{scale['value']}", 
+                        help=f"Rate as {scale['label']}", 
+                        label_visibility="collapsed"):
                 selected_rating = scale['value']
     
     return selected_rating
@@ -486,6 +442,8 @@ def reset_evaluation():
     st.session_state.show_analysis = False
     st.session_state.evaluation_complete = False
     st.session_state.view_mode = "Side-by-Side"
+    if 'celebration_shown' in st.session_state:
+        del st.session_state.celebration_shown
 
 # Main application logic
 if st.session_state.show_analysis:
