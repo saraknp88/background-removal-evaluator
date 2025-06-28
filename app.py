@@ -581,32 +581,35 @@ else:
     
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # Rating section - using simple Streamlit radio buttons
+    # Rating section with horizontal buttons (working version)
     current_rating = st.session_state.ratings.get(current_img, 0)
-    
-    # Create radio options using the quality scales
-    radio_options = []
-    for scale in quality_scales:
-        radio_options.append(f"{scale['value']} - {scale['label']}")
     
     st.markdown("### Rate the quality of the \"Background Removal Result\" image:")
     
-    # Determine the default index
-    default_index = 0 if current_rating == 0 else current_rating - 1
+    # Create horizontal rating buttons
+    cols = st.columns(5)
     
-    # Create radio buttons
-    selected_rating_text = st.radio(
-        "Choose your rating:",
-        radio_options,
-        index=default_index if current_rating > 0 else None,
-        key=f"rating_radio_{current_img}"
-    )
+    for i, scale in enumerate(quality_scales):
+        with cols[i]:
+            button_type = "primary" if current_rating == scale['value'] else "secondary"
+            if st.button(
+                f"{scale['value']} - {scale['label']}", 
+                key=f"rating_btn_{current_img}_{scale['value']}", 
+                type=button_type,
+                help=scale['description']
+            ):
+                st.session_state.ratings[current_img] = scale['value']
+                st.rerun()
     
-    # Extract numeric rating from selection
-    if selected_rating_text:
-        selected_rating = int(selected_rating_text.split(' - ')[0])
-        if selected_rating != current_rating:
-            st.session_state.ratings[current_img] = selected_rating
+    # Show selected rating description
+    if current_rating > 0:
+        selected_scale = quality_scales[current_rating - 1]
+        st.markdown(f"""
+        <div style="background: {selected_scale['color']}20; padding: 1rem; border-radius: 0.5rem; border-left: 4px solid {selected_scale['color']}; margin: 1rem 0;">
+            <strong>Selected: {current_rating} - {selected_scale['label']}</strong><br>
+            {selected_scale['description']}
+        </div>
+        """, unsafe_allow_html=True)
     
     # Navigation buttons
     col1, col2, col3 = st.columns([1, 2, 1])
