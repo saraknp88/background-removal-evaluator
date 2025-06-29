@@ -645,7 +645,7 @@ else:
         if current_img < total_imgs - 1:
             # Next button - positioned at the right
             st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
-            if st.button("Next →", type="primary", key=f"next_{current_img}"):
+            if st.button("Next", type="primary", key=f"next_{current_img}"):
                 st.session_state.current_image += 1
                 st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
