@@ -644,22 +644,22 @@ else:
     
     if current_rating > 0:  # Only allow navigation if rated
         if current_img < total_imgs - 1:
-            # Next button - positioned at the left
-            st.markdown('<div class="nav-button-left">', unsafe_allow_html=True)
+            # Next button - positioned at the right
+            st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
             if st.button("Next →", type="primary", key=f"next_{current_img}"):
                 st.session_state.current_image += 1
                 st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
         else:
-            # Submit button - positioned at the left
-            st.markdown('<div class="nav-button-left">', unsafe_allow_html=True)
+            # Submit button - positioned at the right
+            st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
             if st.button("✨ Submit", type="primary", key=f"submit_{current_img}"):
                 st.session_state.evaluation_complete = True
                 st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
     else:
-        # Show disabled state when no rating selected - positioned at the left
-        st.markdown('<div class="nav-button-left">', unsafe_allow_html=True)
+        # Show disabled state when no rating selected - positioned at the right
+        st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
         st.markdown("""
         <div style="
             padding: 0.5rem 1rem;
