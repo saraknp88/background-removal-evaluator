@@ -164,6 +164,45 @@ st.markdown("""
         border: 1px solid #f59e0b;
     }
     
+    /* Navigation button styling */
+    .nav-button-container {
+        position: relative;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .nav-button-right {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1.5rem;
+    }
+    
+    .nav-button-small {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.875rem !important;
+        width: auto !important;
+        min-width: 100px;
+        max-width: 150px;
+    }
+    
+    .disabled-nav-button {
+        text-align: right;
+        margin-top: 1.5rem;
+    }
+    
+    .disabled-nav-button > div {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #f3f4f6;
+        color: #9ca3af;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+        min-width: 100px;
+        max-width: 150px;
+    }
+    
     /* Hide Streamlit radio button default styling */
     .stRadio > div {
         display: none !important;
@@ -184,6 +223,15 @@ st.markdown("""
         background-color: #f3f4f6;
         border-color: #d1d5db;
         color: #374151;
+    }
+    
+    /* Override button width for navigation buttons */
+    .nav-button-right .stButton > button {
+        width: auto !important;
+        padding: 0.5rem 1rem !important;
+        font-size: 0.875rem !important;
+        min-width: 100px;
+        max-width: 150px;
     }
     
     /* Fireworks animation */
@@ -588,37 +636,35 @@ else:
                 st.session_state.ratings[current_img] = scale['value']
                 st.rerun()
     
-    # Navigation buttons - Next/Submit only
-    st.markdown("---")
+    # Navigation section - positioned at bottom right
+    st.markdown('<div class="nav-button-container">', unsafe_allow_html=True)
     
-    # Single navigation button (centered)
-    col1, col2, col3 = st.columns([1, 2, 1])
+    current_rating = st.session_state.ratings.get(current_img, 0)
     
-    with col2:
-        if current_rating > 0:  # Only allow navigation if rated
-            if current_img < total_imgs - 1:
-                if st.button("Next ➡️", type="primary", key=f"next_{current_img}", use_container_width=True):
-                    st.session_state.current_image += 1
-                    st.rerun()
-            else:
-                if st.button("✨ Submit Evaluation", type="primary", key=f"submit_{current_img}", use_container_width=True):
-                    st.session_state.evaluation_complete = True
-                    st.rerun()
+    if current_rating > 0:  # Only allow navigation if rated
+        if current_img < total_imgs - 1:
+            # Next button - positioned at the right
+            st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
+            if st.button("Next →", type="primary", key=f"next_{current_img}"):
+                st.session_state.current_image += 1
+                st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
         else:
-            # Show disabled state when no rating selected
-            st.markdown("""
-            <div style="
-                text-align: center;
-                padding: 0.5rem 1rem;
-                background-color: #f3f4f6;
-                color: #9ca3af;
-                border: 1px solid #d1d5db;
-                border-radius: 0.375rem;
-                font-weight: 500;
-            ">
-                Please select a rating to continue
-            </div>
-            """, unsafe_allow_html=True)
+            # Submit button - positioned at the right
+            st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
+            if st.button("✨ Submit", type="primary", key=f"submit_{current_img}"):
+                st.session_state.evaluation_complete = True
+                st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        # Show disabled state when no rating selected - positioned at the right
+        st.markdown("""
+        <div class="disabled-nav-button">
+            <div>Please select a rating</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
     
     # Note
     st.markdown("""
