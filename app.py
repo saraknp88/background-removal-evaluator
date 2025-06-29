@@ -646,7 +646,7 @@ else:
         if current_img < total_imgs - 1:
             # Next button - positioned at the right
             st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
-            if st.button("Next", type="primary", key=f"next_{current_img}"):
+            if st.button("Next →", type="primary", key=f"next_{current_img}"):
                 st.session_state.current_image += 1
                 st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
@@ -659,11 +659,23 @@ else:
             st.markdown('</div>', unsafe_allow_html=True)
     else:
         # Show disabled state when no rating selected - positioned at the right
+        st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
         st.markdown("""
-        <div class="disabled-nav-button">
-            <div>Please select a rating</div>
-        </div>
+        <div style="
+            padding: 0.5rem 1rem;
+            background-color: #f3f4f6;
+            color: #9ca3af;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-align: center;
+            min-width: 180px;
+            max-width: 200px;
+            box-sizing: border-box;
+        ">Please select a rating</div>
         """, unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
     
