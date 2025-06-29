@@ -171,9 +171,9 @@ st.markdown("""
         margin-bottom: 2rem;
     }
     
-    .nav-button-left {
+    .nav-button-right {
         display: flex;
-        justify-content: flex-start;
+        justify-content: flex-end;
         margin-top: 1.5rem;
     }
     
@@ -183,25 +183,6 @@ st.markdown("""
         width: auto !important;
         min-width: 100px;
         max-width: 150px;
-    }
-    
-    .disabled-nav-button {
-        text-align: right;
-        margin-top: 1.5rem;
-    }
-    
-    .disabled-nav-button > div {
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        background-color: #f3f4f6;
-        color: #9ca3af;
-        border: 1px solid #d1d5db;
-        border-radius: 0.375rem;
-        font-weight: 500;
-        font-size: 0.875rem;
-        min-width: 180px;
-        max-width: 200px;
-        text-align: center;
     }
     
     /* Hide Streamlit radio button default styling */
@@ -227,7 +208,7 @@ st.markdown("""
     }
     
     /* Override button width for navigation buttons */
-    .nav-button-left .stButton > button {
+    .nav-button-right .stButton > button {
         width: auto !important;
         padding: 0.5rem 1rem !important;
         font-size: 0.875rem !important;
@@ -617,7 +598,7 @@ else:
     
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # Rating section with horizontal buttons (working version)
+    # Rating section with horizontal buttons
     current_rating = st.session_state.ratings.get(current_img, 0)
     
     st.markdown("### Rate the quality of the \"Background Removal Result\" image:")
@@ -639,44 +620,28 @@ else:
     
     # Navigation section - positioned at bottom right
     st.markdown('<div class="nav-button-container">', unsafe_allow_html=True)
+    st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
     
     current_rating = st.session_state.ratings.get(current_img, 0)
     
-    if current_rating > 0:  # Only allow navigation if rated
-        if current_img < total_imgs - 1:
-            # Next button - positioned at the right
-            st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
-            if st.button("Next →", type="primary", key=f"next_{current_img}"):
-                st.session_state.current_image += 1
-                st.rerun()
-            st.markdown('</div>', unsafe_allow_html=True)
-        else:
-            # Submit button - positioned at the right
-            st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
-            if st.button("✨ Submit", type="primary", key=f"submit_{current_img}"):
-                st.session_state.evaluation_complete = True
-                st.rerun()
-            st.markdown('</div>', unsafe_allow_html=True)
+    if current_img < total_imgs - 1:
+        # Next button - blue if rating selected, gray if not
+        button_type = "primary" if current_rating > 0 else "secondary"
+        disabled = current_rating == 0
+        
+        if st.button("Next →", type=button_type, key=f"next_{current_img}", disabled=disabled):
+            st.session_state.current_image += 1
+            st.rerun()
     else:
-        # Show disabled state when no rating selected - positioned at the right
-        st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
-        st.markdown("""
-        <div style="
-            padding: 0.5rem 1rem;
-            background-color: #f3f4f6;
-            color: #9ca3af;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            font-size: 0.875rem;
-            text-align: center;
-            min-width: 180px;
-            max-width: 200px;
-            box-sizing: border-box;
-        ">Please select a rating</div>
-        """, unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        # Submit button - blue if rating selected, gray if not
+        button_type = "primary" if current_rating > 0 else "secondary"
+        disabled = current_rating == 0
+        
+        if st.button("✨ Submit", type=button_type, key=f"submit_{current_img}", disabled=disabled):
+            st.session_state.evaluation_complete = True
+            st.rerun()
     
+    st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
     
     # Note
