@@ -553,7 +553,7 @@ else:
     # Instructions
     st.markdown("""
     <div class="criteria-list">
-        <strong>Assess AI-generated background removal results for production readiness. Rate each image from 1 to 5 based on edge quality, artifact removal, and professional appearance:</strong><br><br>
+        <strong>Assess AI-generated background removal results for production readiness. Rate each image from 1 to 5:</strong><br><br>
         <strong>1 - Unusable:</strong> Major issues with structure, style, identity, or overall quality. Not suitable for use.<br>
         <strong>2 - Partially Viable:</strong> Useful as a concept or direction, but not for final use. Significant fixes required.<br>
         <strong>3 - Moderately Functional:</strong> Largely usable, with moderate fixes needed. More efficient than starting from scratch.<br>
@@ -644,9 +644,3 @@ else:
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # Note
-    st.markdown("""
-    <div class="note-box">
-        <small><strong>Note:</strong> You are now evaluating real background removal results. Rate the quality of the processed images based on edge quality, artifact removal, and professional appearance.</small>
-    </div>
-    """, unsafe_allow_html=True)
