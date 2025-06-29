@@ -199,8 +199,9 @@ st.markdown("""
         border-radius: 0.375rem;
         font-weight: 500;
         font-size: 0.875rem;
-        min-width: 100px;
-        max-width: 150px;
+        min-width: 180px;
+        max-width: 200px;
+        text-align: center;
     }
     
     /* Hide Streamlit radio button default styling */
@@ -230,8 +231,8 @@ st.markdown("""
         width: auto !important;
         padding: 0.5rem 1rem !important;
         font-size: 0.875rem !important;
-        min-width: 100px;
-        max-width: 150px;
+        min-width: 180px;
+        max-width: 200px;
     }
     
     /* Fireworks animation */
@@ -645,7 +646,7 @@ else:
         if current_img < total_imgs - 1:
             # Next button - positioned at the right
             st.markdown('<div class="nav-button-right">', unsafe_allow_html=True)
-            if st.button("Next", type="primary", key=f"next_{current_img}"):
+            if st.button("Next →", type="primary", key=f"next_{current_img}"):
                 st.session_state.current_image += 1
                 st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
