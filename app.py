@@ -523,9 +523,9 @@ if st.session_state.show_analysis:
     st.plotly_chart(fig, use_container_width=True)
     
     # Action buttons
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     
-    with col2:
+    with col3:
         if st.button("🔄 Start New Evaluation", type="secondary"):
             reset_evaluation()
             st.rerun()
