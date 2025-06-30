@@ -7,13 +7,7 @@
 
 ## 💬 About
 
-Assess AI-generated background removal results for production readiness with our comprehensive 5-point evaluation system.
-
-### ✨ Features
-- **Professional Assessment**: Rate images from 1-5 based on edge quality, artifact removal, and professional appearance
-- **Interactive Interface**: Side-by-side comparison views
-- **Comprehensive Analytics**: Detailed evaluation reports and statistics
-- **Mobile Friendly**: Works seamlessly across all devices
+Assess AI-generated background removal results for production readiness with our comprehensive 5-point evaluation system below.
 
 ### ⚖️ Rating Scale
 - **1 - Unusable**: Major issues, not suitable for use
@@ -21,6 +15,12 @@ Assess AI-generated background removal results for production readiness with our
 - **3 - Moderately Functional**: Moderate fixes needed
 - **4 - Near Production Ready**: Minor adjustments needed
 - **5 - Production Ready**: Ready for immediate use
+  
+### ✨ Features
+- **Professional Assessment**: Rate images from 1-5 based on edge quality, artifact removal, and professional appearance
+- **Interactive Interface**: Side-by-side comparison views
+- **Comprehensive Analytics**: Detailed evaluation reports and statistics
+- **Mobile Friendly**: Works seamlessly across all devices
 
 ## 🔗 Quick Start
 
