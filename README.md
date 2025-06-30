@@ -17,7 +17,7 @@ Assess AI-generated background removal results for production readiness with our
 - **5 - Production Ready**: Ready for immediate use
   
 ### ✨ Features
-- **Professional Assessment**: Rate images from 1-5 based on edge quality, artifact removal, and professional appearance
+- **Professional Assessment**: Rate images from 1-5 rubric criteria above. 
 - **Interactive Interface**: Side-by-side comparison views
 - **Comprehensive Analytics**: Detailed evaluation reports and statistics
 - **Mobile Friendly**: Works seamlessly across all devices
@@ -25,7 +25,7 @@ Assess AI-generated background removal results for production readiness with our
 ## 🔗 Quick Start
 
 1. **[Open the App]([your-streamlit-app-url-here] https://background-removal-evaluator-8qmjiykauk7sjauwsnjskj.streamlit.app/)**
-2. **Review the criteria** on the landing page
+2. **Review the criteria** 
 3. **Evaluate images** using the 5-point scale
 4. **View analysis** when complete
 
