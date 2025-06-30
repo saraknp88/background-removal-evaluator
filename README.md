@@ -11,11 +11,11 @@ Manual Background Removal Evaluator is a Streamlit web application for assessing
 
 
 ### ⚖️ Rating Scale
-- **1 - Unusable: Major issues with structure, style, identity, or overall quality. Not suitable for use.
-- **2 - Partially Viable: Useful as a concept or direction, but not for final use. Significant fixes required.
-- **3 - Moderately Functional: Largely usable, with moderate fixes needed. More efficient than starting from scratch.
-- **4 - Near Production Ready: Only minor adjustments needed, such as light cleanup or retouching.
-- **5 - Production Ready: No further edits needed. Ready for immediate use.
+- **1 - Unusable**: Major issues with structure, style, identity, or overall quality. Not suitable for use.
+- **2 - Partially Viable**: Useful as a concept or direction, but not for final use. Significant fixes required.
+- **3 - Moderately Functional**: Largely usable, with moderate fixes needed. More efficient than starting from scratch.
+- **4 - Near Production Ready**: Only minor adjustments needed, such as light cleanup or retouching.
+- **5 - Production Ready**: No further edits needed. Ready for immediate use.
   
 ### ✨ Features
 - **Professional Assessment**: Rate images from 1-5 rubric criteria above. 
