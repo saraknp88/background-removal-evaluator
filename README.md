@@ -1,7 +1,7 @@
 # ⚖️ Manual Background Removal Evaluator App
 
 <p align="center">
-  <img src="assets/logo.png" alt="Logo" width="200"/>
+  <img src="Logo.png" alt="Logo" width="200"/>
 </p>
   
   **Background Removal Quality Assessment Tool**
