@@ -1,9 +1,9 @@
-# ⚖️ Sara's Enterprise Background Removal Evaluator
+# ⚖️ Manual Background Removal Evaluator App
 
 <div align="center">
   <img src="logo.svg" alt="Sara's Evaluator Logo" width="400" height="120">
   
-  **AI Background Removal Quality Assessment Tool**
+  **Background Removal Quality Assessment Tool**
   
   [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](your-streamlit-app-url-here)
 </div>
