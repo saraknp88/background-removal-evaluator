@@ -29,7 +29,7 @@ Manual Background Removal Evaluator is a Streamlit web application for assessing
 
 ## 🔗 Quick Start
 
-1. **Open the App: https://background-removal-evaluator-8qmjiykauk7sjauwsnjskj.streamlit.app/)**
+1. **Open the App**: https://background-removal-evaluator-8qmjiykauk7sjauwsnjskj.streamlit.app/
 2. **Review the criteria** 
 3. **Evaluate images** using the 5-point scale
 4. **View analysis** when complete
