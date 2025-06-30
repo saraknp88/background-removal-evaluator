@@ -7,7 +7,8 @@
 
 ## 💬 About
 
-Assess AI-generated background removal results for production readiness with our comprehensive 5-point evaluation system below.
+Manual Background Removal Evaluator is a Streamlit web application for assessing AI-generated background removal results for production readiness using a 5-point evaluation rubric system. This tool enables human annotators to validate the quality of background-removed images by comparing the original and processed versions side by side. Annotators score each image using a well-defined 5-point rubric, ensuring consistent and objective assessment. At the end of the evaluation, users receive a summary dashboard with an executive summary of the results, average score, and rating distributions to inform product decisions.
+
 
 ### ⚖️ Rating Scale
 - **1 - Unusable**: Major issues, not suitable for use
