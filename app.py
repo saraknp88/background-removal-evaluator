@@ -7,7 +7,7 @@ import time
 
 # Page configuration
 st.set_page_config(
-    page_title="Sara's Enterprise Background Removal Evaluator",
+    page_title="Manual Background Removal Evaluator App",
     page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -548,7 +548,7 @@ elif st.session_state.evaluation_complete:
 
 else:
     # Main Evaluation Page
-    st.markdown('<h1 class="main-header">Sara\'s Enterprise Background Removal Evaluator</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">Manual Background Removal Evaluator App</h1>', unsafe_allow_html=True)
     
     # Instructions
     st.markdown("""
