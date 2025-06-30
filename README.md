@@ -2,7 +2,7 @@
   
   **Background Removal Quality Assessment Tool**
   
-  [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](your-streamlit-app-url-here)
+  [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]([your-streamlit-app-url-here](https://background-removal-evaluator-8qmjiykauk7sjauwsnjskj.streamlit.app/))
 </div>
 
 ## 💬 About
