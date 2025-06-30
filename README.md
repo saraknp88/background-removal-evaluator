@@ -1,7 +1,4 @@
 # ⚖️ Manual Background Removal Evaluator App
-
-<div align="center">
-  <img src="logo.svg" alt="Sara's Evaluator Logo" width="400" height="120">
   
   **Background Removal Quality Assessment Tool**
   
