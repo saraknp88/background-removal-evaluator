@@ -451,7 +451,7 @@ if st.session_state.show_analysis:
     # Analysis Page
     analysis = calculate_analysis()
     
-    st.markdown('<h1 class="main-header">Background Removal Quality Analysis</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">Evaluation Dashboard</h1>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Performance evaluation dashboard</p>', unsafe_allow_html=True)
     
     # Executive Summary
